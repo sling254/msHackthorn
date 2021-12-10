@@ -1,4 +1,8 @@
 {% extends 'base.html'%}
 {% block content %}
 <h2>hello</h2>
+{{user.id}}
+{{user.profile.name}}
+<a href="{% url 'profile' user.profile.pk %}">Profile</a>
+
 {% endblock %}
