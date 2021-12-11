@@ -1,12 +1,51 @@
 {% extends 'base.html'%}
+{% load static %}
 {% block content %}
-<h2>hello</h2>
-{{user.id}}
-{{user.profile.name}}
+<div class="mt-5">
+    <div class="container">
+        <div class="row gy-3">
+            <div class="col-md-4">
+                <div class="card" >
+                    <img src="{%static 'img/back1.png'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" >
+                    <img src="{%static 'img/back1.png'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" >
+                    <img src="{%static 'img/back1.png'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" >
+                    <img src="{%static 'img/back1.png'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
 
-{% if user.is_authenticated%}
-<a href="{% url 'profile' user.profile.pk %}">Profile</a>
-{% endif %}
-
-
+</div>
 {% endblock %}
