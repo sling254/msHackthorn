@@ -34,7 +34,9 @@
             {% for project in projects %}
               <div class="col-md-4">
                 <div class="card" >
+                  <a href="{% url 'project-edit' project.pk %}">
                     <img src="{{project.image.url}}" class="card-img-top" alt="...">
+                  </a>                    
                     <div class="card-body">
                       <h5 class="card-title">{{project.title}}</h5>
                       <p class="card-text">{{project.description}}</p>
