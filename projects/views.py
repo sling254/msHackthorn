@@ -32,6 +32,22 @@ def PostProjectView(request):
         form = ProjectForm()
 
     return render(request,'post_project.html',{"form":form})
+
+class ProjectEditView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
+    model = Project
+    fields = ['title', 'description', 'image', 'live_link', 'github_link']
+    template_name = 'project_edit.html'
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse_lazy('project', kwargs={'pk': pk})
+        
+
+    def test_func(self):
+        project = self.get_object()
+        if self.request.user == project.user:
+            return True
+        return False
     
 class ProfileView(View):
     def get(self, request, pk, *args, **kwargs):
