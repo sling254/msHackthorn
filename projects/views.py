@@ -1,29 +1,38 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from .models import UserProfile, Project
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
+from .form import ProjectForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
 def IndexView(request):
-    projects = Project.objects.all().order_by('-date_created')
+    projects = Project.objects.all().order_by('-created_on')
     
     context = {
         "projects": projects,
     }
     return render(request, 'index.html', context)
+@login_required
+def PostProjectView(request):
+    form = ProjectForm()
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            form = form.save(commit = False)      
+            form.user = request.user
+            form.save()
+            return redirect('index')
 
-class ProjectCreateView(LoginRequiredMixin, CreateView):
-    model = Project
-    fields = ['title', 'description', 'image']
-    success_url = reverse_lazy('index')
+    else:
+        form = ProjectForm()
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    return render(request,'post_project.html',{"form":form})
+    
 class ProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)

@@ -8,6 +8,14 @@ class ProjectForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'placeholder': 'Project title'
             }))
+    description = forms.CharField(
+        label='',
+        widget=forms.Textarea(attrs={
+            'placeholder': 'Short description',
+            'class': 'Form-Control mt-2',
+            'rows': '5',
+        }))
+    
     class Meta:
         model = Project
-        fields = ['title', 'description', 'image', 'live_link','github_like']
+        fields = ['title', 'description', 'image', 'live_link','github_link']
