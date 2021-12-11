@@ -9,14 +9,21 @@ from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 
 
 def IndexView(request):
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('-date_created')
     
     context = {
         "projects": projects,
     }
     return render(request, 'index.html', context)
 
+class ProjectCreateView(LoginRequiredMixin, CreateView):
+    model = Project
+    fields = ['title', 'description', 'image']
+    success_url = reverse_lazy('index')
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 class ProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
