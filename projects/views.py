@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from .models import UserProfile
+from .models import UserProfile, Project
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 
@@ -9,7 +9,12 @@ from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 
 
 def IndexView(request):
-    return render(request, 'index.html')
+    projects = Project.objects.all()
+    
+    context = {
+        "projects": projects,
+    }
+    return render(request, 'index.html', context)
 
 
 class ProfileView(View):
