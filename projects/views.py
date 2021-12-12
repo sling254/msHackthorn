@@ -5,7 +5,7 @@ from .models import UserProfile, Project,Rate
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.http import Http404,HttpResponseRedirect
-from .form import ProjectForm
+from .form import ProjectForm, RatingsForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -50,7 +50,7 @@ class ProjectEditView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
             return True
         return False
 
-def detail(request,project_id):
+def DetailView(request,project_id):
   current_user = request.user
   all_ratings = Rate.objects.filter(project_id=project_id).all()
   project = Project.objects.get(pk = project_id)
@@ -88,7 +88,16 @@ def detail(request,project_id):
       return HttpResponseRedirect(request.path_info)
   else:
       form = RatingsForm()
-  return render(request, 'project_details.html', {'current_user':current_user,'all_ratings':all_ratings,'project':project,'rating_form': form,'rating_status': rating_status})
+
+  context = {
+      'current_user':current_user,
+      'all_ratings':all_ratings,
+      'project':project,
+      'rating_form': form,
+      'rating_status': rating_status
+
+  }
+  return render(request, 'project_details.html', context)
 
 
 
