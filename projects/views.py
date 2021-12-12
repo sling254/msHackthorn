@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from .models import UserProfile, Project
+from .models import UserProfile, Project,Rate
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
+from django.http import Http404,HttpResponseRedirect
 from .form import ProjectForm
 from django.contrib.auth.decorators import login_required
 
@@ -48,7 +49,49 @@ class ProjectEditView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
         if self.request.user == project.user:
             return True
         return False
-    
+
+def detail(request,project_id):
+  current_user = request.user
+  all_ratings = Rate.objects.filter(project_id=project_id).all()
+  project = Project.objects.get(pk = project_id)
+  ratings = Rate.objects.filter(user=request.user,project=project_id).first()
+  rating_status = None
+  if ratings is None:
+    rating_status = False
+  else:
+    rating_status = True
+  if request.method == 'POST':
+    form = RatingsForm(request.POST)
+    if form.is_valid():
+      rate = form.save(commit=False)
+      rate.user = request.user
+      rate.project = project
+      rate.save()
+      post_ratings = Rate.objects.filter(project=project_id)
+
+      design_ratings = [design.design_wise for design in post_ratings]
+      design_wise_average = sum(design_ratings) / len(design_ratings)
+
+      usability_ratings = [usability.usability_wise for usability in post_ratings]
+      usability_wise_average = sum(usability_ratings) / len(usability_ratings)
+
+      content_ratings = [content.content_wise for content in post_ratings]
+      content_wise_average = sum(content_ratings) / len(content_ratings)
+
+      aggregate_average_rate = (design_wise_average + usability_wise_average + content_wise_average) / 3
+      print(aggregate_average_rate)
+      rate.design_wise_average = round(design_wise_average, 2)
+      rate.usability_wise_average = round(usability_wise_average, 2)
+      rate.content_wise_average = round(content_wise_average, 2)
+      rate.aggregate_average_rate = round(aggregate_average_rate, 2)
+      rate.save()
+      return HttpResponseRedirect(request.path_info)
+  else:
+      form = RatingsForm()
+  return render(request, 'project_details.html', {'current_user':current_user,'all_ratings':all_ratings,'project':project,'rating_form': form,'rating_status': rating_status})
+
+
+
 class ProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
