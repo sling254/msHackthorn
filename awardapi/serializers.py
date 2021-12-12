@@ -11,4 +11,4 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ('id', 'username', 'bio', 'birth_date','picture', 'location','email','picture')
+        fields = ('username', 'bio', 'birth_date','picture', 'location','email','picture')
