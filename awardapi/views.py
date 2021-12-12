@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from ..projects.models import Project, UserProject
-from .serializers import ProjectSerializer, UserProjectSerializer
+from projects.models import Project
+from .serializers import ProjectSerializer
 # Create your views here.
 
 class ProjectViewSet(viewsets.ModelViewSet):
