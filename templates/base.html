@@ -41,7 +41,7 @@
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ request.user}}<img src="{% static 'usericon.png' %}" width="35"height="35" alt="" srcset="">
+                {{ request.user}} <img src="{{ user.profile.picture.url }}" width="35"height="35" alt="" class="rounded-circle">
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                 <li><a class="dropdown-item" href="{% url 'profile' user.profile.pk%}">Profile</a></li>

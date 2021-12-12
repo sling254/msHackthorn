@@ -46,6 +46,12 @@
                               <a href="{% url 'project-detail' project.pk%}" ><span class="badge bg-info">Details</span></a>
                           </div>
                       </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col">
+                          <img src="{{ project.user.profile.picture.url }}" width="35"height="35" alt="" class="rounded-circle"> &nbsp; <small class="font-italic">by {{ project.user}}</small>                      
+                        </div>
+                      </div>
                       <div class="card-footer text-muted mt-2">
                         <div class="progress mb-1">
                             <div class="progress-bar bg-success" role="progressbar" style="width: 26%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Usability</div>
