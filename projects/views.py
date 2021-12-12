@@ -105,11 +105,13 @@ def DetailView(request,project_id):
 class ProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
+        projects = Project.objects.filter(user=profile.user).all()
         user = profile.user
         
         context = {
             'user': user,
             'profile': profile,
+            'projects': projects,
         }
 
         return render(request, 'profile.html', context)
@@ -117,7 +119,7 @@ class ProfileView(View):
 
 class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
     model = UserProfile
-    fields = ['username', 'bio', 'birth_date', 'location', 'picture']
+    fields = ['username', 'email', 'bio', 'birth_date', 'location', 'picture']
     template_name = 'profile_edit.html'
 
     def get_success_url(self):

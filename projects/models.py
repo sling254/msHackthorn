@@ -16,6 +16,7 @@ class UserProfile(models.Model):
     birth_date = models.DateField(blank=True,null=True)
     location = models.CharField(max_length=50,blank=True,null=True)
     picture = CloudinaryField('image',default='static/usericon.png',blank=True)
+    email = models.EmailField(max_length=50,blank=True,null=True)
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
