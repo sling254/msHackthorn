@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'crispy_forms',    
     'projects',
     'rest_framework',
+    'awardapi',
 
 
 ]
