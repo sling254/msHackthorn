@@ -32,8 +32,8 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
             </li>              
-            <form class="d-flex" action="#">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"value="{{ request.GET.query}}" name="query">
+            <form class="d-flex" action="{% url 'project-search' %}">
+                <input class="form-control me-2" type="search" placeholder="Search Project" aria-label="Search"value="{{ request.GET.query}}" name="query">
                 <button class="btn btn-outline-success" style="border:none; box-shadow:none" type="submit">
                   <i class="fas fa-search"></i>
                 </button>

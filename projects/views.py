@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -129,3 +130,17 @@ class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
         if self.request.user == profile.user:
             return True
         return False
+
+
+
+class ProjectSearch(View):
+    def get(self, request, *args, **kwargs):
+        query = self.request.GET.get('query')
+        project_list = Project.search_projects(query)
+
+        context = {
+            'project_list': project_list,
+        }
+
+        return render(request, 'search.html', context)
+        

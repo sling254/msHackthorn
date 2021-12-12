@@ -41,6 +41,10 @@ class Project(models.Model):
     github_link = models.CharField(max_length=50,blank=True,null=True)
     created_on = models.DateTimeField(auto_now_add=True,null=True,blank=True)
 
+    @classmethod
+    def search_projects(cls, title):
+        return cls.objects.filter(title__icontains=title).all()
+
     def __str__(self):
         return f"{self.user.username}'s Project"
 
