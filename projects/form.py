@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project
+from .models import Project,Rate
 
 
 class ProjectForm(forms.ModelForm):
@@ -19,3 +19,9 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['title', 'description', 'image', 'live_link','github_link']
+
+
+class RatingsForm(forms.ModelForm):
+    class Meta:
+        model = Rate
+        fields = ['design_wise', 'usability_wise', 'content_wise']
