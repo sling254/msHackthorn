@@ -29,12 +29,12 @@
    
       {% endfor %}
     </table>
-      <h2 class="text-success">{{ project.title }}</h2>
+      <h2 class="text-success ">{{ project.title }}</h2>
       <P>{{ project.description}}</P>
       <p>{{project.technologies_used}}</p>
       <!--Display projects project images  -->
       <img src="{{project.image.url}}" class="img-thumbnail" alt="Image" onclick="window.open(this.src)">
-      <div class="row">
+      <div class="row mb-4">
         <div class="col-md-3">
           <a href="{{project.github_link}}" target="_blank"><button class="btn link live-link">View on Github</button></a>
         </div>
@@ -42,7 +42,7 @@
           <a href="{{project.live_link}}"><button class="btn link live-link">View Live Site</button></a>
         </div>
         <div class="col-md-6">
-          <P>Posted on: <strong>{{project.posted_on|date}}</strong> by <span class="text-success">{{project.user.username}}</span>
+          <P>Posted on: <strong>{{project.created_on|date}}</strong> by <span class="text-success">{{project.user.username}}</span>
         </div>
       </div>
       {% if rating_status %}
@@ -56,7 +56,7 @@
       {% endif %}
       {% endif %}
       {% if project.user.username == current_user.username %}
-      <a href="#" class="btn btn-danger">Delete</a>
+      <!-- <a href="#" class="btn btn-danger">Delete</a> -->
       {% endif %}
 
     </div>

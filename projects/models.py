@@ -46,6 +46,17 @@ class Project(models.Model):
     def search_projects(cls, title):
         return cls.objects.filter(title__icontains=title).all()
 
+    @classmethod
+    def display_projects(cls):
+        projects = cls.objects.all().order_by('-posted_on')
+        return projects
+
+    def save_project(self):
+        self.save()
+
+    def delete_project(self):
+        self.delete()
+
     def __str__(self):
         return f"{self.user.username}'s Project"
 

@@ -51,7 +51,7 @@ class ProjectEditView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
             return True
         return False
 
-def DetailView(request,project_id):
+def DetailViews(request,project_id):
   current_user = request.user
   all_ratings = Rate.objects.filter(project_id=project_id).all()
   project = Project.objects.get(pk = project_id)
