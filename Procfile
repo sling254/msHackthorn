@@ -1,1 +1,1 @@
-web: gunicorn mshackthorn.wsgi --log--file
+web: gunicorn mshackthorn.wsgi 
