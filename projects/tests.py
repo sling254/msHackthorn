@@ -50,12 +50,12 @@ class ProjectTest(TestCase):
     projects = Project.all_projects()
     self.assertTrue(len(projects) > 0)
 
-  def test_save_post(self):
+  def test_save_project(self):
     self.project.save_project()
     project = Project.objects.all()
     self.assertTrue(len(project) > 0)
 
-  def test_delete_post(self):
+  def test_delete_project(self):
     self.project.delete_project()
     project = Project.search_project('another_project')
     self.assertTrue(len(project) < 1)
